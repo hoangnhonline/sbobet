@@ -9,6 +9,7 @@ use App\Models\ScheduleBet;
 use App\Models\MatchBetDetail;
 use Session;
 use DB;
+use GearmanClient;
 
 class ReportController extends Controller {
 
@@ -34,6 +35,18 @@ public function updateRun(Request $request){
 		$model = Account::find(self::$account_id);
 		$model->run = $run;
 		$model->save();
+		if($run == 0){			
+			$gmclient= new \GearmanClient();			
+			$gmclient->addServer("127.0.0.1", 4730);		
+			$job_handle = $gmclient->doBackground("match_update_status", json_encode(['user_id' => self::$account_id]));
+			if ($gmclient->returnCode() != GEARMAN_SUCCESS)
+			{
+			  echo "bad return code\n";
+			  exit;
+			}
+
+			echo "done!\n";
+		}
 		return redirect()->route('match.index');
 	}	
 	public function statement(Request $request)
