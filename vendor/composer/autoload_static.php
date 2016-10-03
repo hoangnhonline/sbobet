@@ -14,9 +14,9 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'b4e3f29b106af37a2bb239f73cdf68c7' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
@@ -56,6 +56,7 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'P' => 
         array (
             'Psy\\' => 4,
+            'Psr\\Log\\' => 8,
             'PhpParser\\' => 10,
         ),
         'M' => 
@@ -182,6 +183,10 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src/Psy',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -235,10 +240,6 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
     public static $prefixesPsr0 = array (
         'P' => 
         array (
-            'Psr\\Log\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/psr/log',
-            ),
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
@@ -284,14 +285,15 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'App\\Events\\Event' => __DIR__ . '/../..' . '/app/Events/Event.php',
         'App\\Events\\UserAccess' => __DIR__ . '/../..' . '/app/Events/UserAccess.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccountController.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthController.php',
         'App\\Http\\Controllers\\Auth\\PasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordController.php',
-        'App\\Http\\Controllers\\BlogController' => __DIR__ . '/../..' . '/app/Http/Controllers/BlogController.php',
-        'App\\Http\\Controllers\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentController.php',
-        'App\\Http\\Controllers\\ContactController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContactController.php',
+        'App\\Http\\Controllers\\BetController' => __DIR__ . '/../..' . '/app/Http/Controllers/BetController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\MatchController' => __DIR__ . '/../..' . '/app/Http/Controllers/MatchController.php',
+        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\App' => __DIR__ . '/../..' . '/app/Http/Middleware/App.php',
@@ -299,6 +301,7 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\IsAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/IsAdmin.php',
         'App\\Http\\Middleware\\IsAjax' => __DIR__ . '/../..' . '/app/Http/Middleware/IsAjax.php',
+        'App\\Http\\Middleware\\IsChoiceAccount' => __DIR__ . '/../..' . '/app/Http/Middleware/IsChoiceAccount.php',
         'App\\Http\\Middleware\\IsRedactor' => __DIR__ . '/../..' . '/app/Http/Middleware/IsRedactor.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
@@ -322,12 +325,17 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'App\\Listeners\\LoginSuccess' => __DIR__ . '/../..' . '/app/Listeners/LoginSuccess.php',
         'App\\Listeners\\LogoutSuccess' => __DIR__ . '/../..' . '/app/Listeners/LogoutSuccess.php',
         'App\\Listeners\\UserAccess' => __DIR__ . '/../..' . '/app/Listeners/UserAccess.php',
-        'App\\Models\\Comment' => __DIR__ . '/../..' . '/app/Models/Comment.php',
-        'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
-        'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
-        'App\\Models\\PostTag' => __DIR__ . '/../..' . '/app/Models/PostTag.php',
+        'App\\Models\\Account' => __DIR__ . '/../..' . '/app/Models/Account.php',
+        'App\\Models\\AccountLeague' => __DIR__ . '/../..' . '/app/Models/AccountLeague.php',
+        'App\\Models\\BetResult' => __DIR__ . '/../..' . '/app/Models/BetResult.php',
+        'App\\Models\\League' => __DIR__ . '/../..' . '/app/Models/League.php',
+        'App\\Models\\Match' => __DIR__ . '/../..' . '/app/Models/Match.php',
+        'App\\Models\\MatchBet' => __DIR__ . '/../..' . '/app/Models/MatchBet.php',
+        'App\\Models\\MatchBetDetail' => __DIR__ . '/../..' . '/app/Models/MatchBetDetail.php',
+        'App\\Models\\PriceRange' => __DIR__ . '/../..' . '/app/Models/PriceRange.php',
+        'App\\Models\\Ratio' => __DIR__ . '/../..' . '/app/Models/Ratio.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
-        'App\\Models\\Tag' => __DIR__ . '/../..' . '/app/Models/Tag.php',
+        'App\\Models\\ScheduleBet' => __DIR__ . '/../..' . '/app/Models/ScheduleBet.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Policies\\PostPolicy' => __DIR__ . '/../..' . '/app/Policies/PostPolicy.php',
         'App\\Presenters\\DatePresenter' => __DIR__ . '/../..' . '/app/Presenters/DatePresenter.php',
@@ -1471,6 +1479,8 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'League\\Flysystem\\PluginInterface' => __DIR__ . '/..' . '/league/flysystem/src/PluginInterface.php',
         'League\\Flysystem\\Plugin\\AbstractPlugin' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/AbstractPlugin.php',
         'League\\Flysystem\\Plugin\\EmptyDir' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/EmptyDir.php',
+        'League\\Flysystem\\Plugin\\ForcedCopy' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ForcedCopy.php',
+        'League\\Flysystem\\Plugin\\ForcedRename' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ForcedRename.php',
         'League\\Flysystem\\Plugin\\GetWithMetadata' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/GetWithMetadata.php',
         'League\\Flysystem\\Plugin\\ListFiles' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ListFiles.php',
         'League\\Flysystem\\Plugin\\ListPaths' => __DIR__ . '/..' . '/league/flysystem/src/Plugin/ListPaths.php',
@@ -2656,6 +2666,7 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'Symfony\\Component\\HttpFoundation\\ApacheRequest' => __DIR__ . '/..' . '/symfony/http-foundation/ApacheRequest.php',
         'Symfony\\Component\\HttpFoundation\\BinaryFileResponse' => __DIR__ . '/..' . '/symfony/http-foundation/BinaryFileResponse.php',
         'Symfony\\Component\\HttpFoundation\\Cookie' => __DIR__ . '/..' . '/symfony/http-foundation/Cookie.php',
+        'Symfony\\Component\\HttpFoundation\\Exception\\ConflictingHeadersException' => __DIR__ . '/..' . '/symfony/http-foundation/Exception/ConflictingHeadersException.php',
         'Symfony\\Component\\HttpFoundation\\ExpressionRequestMatcher' => __DIR__ . '/..' . '/symfony/http-foundation/ExpressionRequestMatcher.php',
         'Symfony\\Component\\HttpFoundation\\FileBag' => __DIR__ . '/..' . '/symfony/http-foundation/FileBag.php',
         'Symfony\\Component\\HttpFoundation\\File\\Exception\\AccessDeniedException' => __DIR__ . '/..' . '/symfony/http-foundation/File/Exception/AccessDeniedException.php',
@@ -2762,6 +2773,7 @@ class ComposerStaticInita3266f98c347dd3ffc49a2972b059fb8
         'Symfony\\Component\\HttpKernel\\EventListener\\SurrogateListener' => __DIR__ . '/..' . '/symfony/http-kernel/EventListener/SurrogateListener.php',
         'Symfony\\Component\\HttpKernel\\EventListener\\TestSessionListener' => __DIR__ . '/..' . '/symfony/http-kernel/EventListener/TestSessionListener.php',
         'Symfony\\Component\\HttpKernel\\EventListener\\TranslatorListener' => __DIR__ . '/..' . '/symfony/http-kernel/EventListener/TranslatorListener.php',
+        'Symfony\\Component\\HttpKernel\\EventListener\\ValidateRequestListener' => __DIR__ . '/..' . '/symfony/http-kernel/EventListener/ValidateRequestListener.php',
         'Symfony\\Component\\HttpKernel\\Event\\FilterControllerEvent' => __DIR__ . '/..' . '/symfony/http-kernel/Event/FilterControllerEvent.php',
         'Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent' => __DIR__ . '/..' . '/symfony/http-kernel/Event/FilterResponseEvent.php',
         'Symfony\\Component\\HttpKernel\\Event\\FinishRequestEvent' => __DIR__ . '/..' . '/symfony/http-kernel/Event/FinishRequestEvent.php',
