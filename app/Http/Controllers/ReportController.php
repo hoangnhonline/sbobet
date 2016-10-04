@@ -30,7 +30,7 @@ class ReportController extends Controller {
 
 
 	}
-public function updateRun(Request $request){
+	public function updateRun(Request $request){
 		$run = $request->run;
 		$model = Account::find(self::$account_id);
 		$model->run = $run;
@@ -47,6 +47,22 @@ public function updateRun(Request $request){
 
 			echo "done!\n";
 		}
+		return redirect()->route('match.index');
+	}	
+	public function crawler(Request $request){
+		$type = $request->type;		
+		
+		$gmclient= new \GearmanClient();			
+		$gmclient->addServer("127.0.0.1", 4730);		
+		$job_handle = $gmclient->doBackground("crawler", json_encode(['user_id' => self::$account_id, 'type' => $type]));
+		if ($gmclient->returnCode() != GEARMAN_SUCCESS)
+		{
+		  echo "bad return code\n";
+		  exit;
+		}
+
+		echo "done!\n";
+		
 		return redirect()->route('match.index');
 	}	
 	public function statement(Request $request)
@@ -81,6 +97,26 @@ public function updateRun(Request $request){
 			$dataArr = $query->get();
 		$account_id = self::$account_id;
 		return view('back.report.view-log', compact('dataArr', 's', 'haveLog', 'account_id'));
+	}
+	public function detailLog(Request $request){
+		$schedule_id = $request->schedule_id;
+		$s = ScheduleBet::find($schedule_id);	
+		$haveLog = MatchBetDetail::where([
+			'half' => $s->time_half,
+			'user_id' => self::$account_id,
+			'ref_id' => $s->match_id])->count();
+			
+		$query = MatchBetDetail::where([
+			'half' => $s->time_half,
+			'user_id' => self::$account_id,
+			'ref_id' => $s->match_id,
+			'bet_type' => $s->bet_type			
+			]);			
+			$query->where('minute', '>=', $s->time_from);
+			$query->where('minute', '<=', $s->time_to);
+			$dataArr = $query->get();
+		$account_id = self::$account_id;
+		return view('back.report.detail-log', compact('dataArr', 's', 'haveLog', 'account_id'));
 	}
 	public function reportSchedule(Request $request)
 	{			

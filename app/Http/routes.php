@@ -99,7 +99,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('report/schedule', ['uses' => 'ReportController@reportSchedule', 'as' => 'schedule']);
 
 	Route::get('report/view-log', ['uses' => 'ReportController@viewLog', 'as' => 'view-log']);
+	Route::get('report/detail-log', ['uses' => 'ReportController@detailLog', 'as' => 'detail-log']);
 	Route::get('report/update-run', ['uses' => 'ReportController@updateRun', 'as' => 'update-run']);
+	Route::get('crawler', ['uses' => 'ReportController@crawler', 'as' => 'crawler']);
 	Route::get('match/ajax-load-bet', ['uses' => 'MatchController@ajaxLoadBet', 'as' => 'ajax-load-bet']);
 	Route::get('match/set-provider', ['uses' => 'MatchController@setProvider', 'as' => 'set-provider']);
 	Route::get('match/set-account', ['uses' => 'MatchController@setAccount', 'as' => 'set-account']);

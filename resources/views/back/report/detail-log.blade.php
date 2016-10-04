@@ -31,17 +31,16 @@
               {{ $data->bet_ratio }}
             </td>
             <td>
-               <span {{ $s->priority == 'h' && $data->bet_ratio2 >= $s->ratio_from && $data->bet_ratio2 <= $s->ratio_to ? "style=color:red" : "" }}>{{ $data->bet_ratio2 }}</span>
+               <span>{{ $data->bet_ratio2 }}</span>
             </td>
             <td>  
-             <span {{ $s->priority == 'a' && $data->bet_ratio3 >= $s->ratio_from && $data->bet_ratio3 <= $s->ratio_to ? "style=color:red" : "" }}>{{ $data->bet_ratio3 }}</span>
+             <span>{{ $data->bet_ratio3 }}</span>
+
             </td>
           </tr>
           @endforeach
           @else
-          <tr><td colspan="7">No record with bet ratio = {{ $s->ratio }} [ {{ $s->time_from  }} -> {{ $s->time_to }} ].
-          <a href="{{ route('detail-log', ['schedule_id' => $s->id]) }}">View details</a>
-          </td></tr>
+          <tr><td colspan="7">No record with bet ratio = {{ $s->ratio }} [ {{ $s->time_from  }} -> {{ $s->time_to }} ].</td></tr>
         @endif
         </table>
         @else

@@ -132,6 +132,10 @@
                         @else
                         <a class="btn btn-danger" href="{{ route('update-run', ['run' => 0]) }}" onclick="return confirm('Are you sure you want to STOP this account ?');">STOP</a>
                         @endif
+                        @if($detailAccount->run == 1)
+                        <a class="btn btn-success" href="{{ route('crawler', ['type' => 'live']) }}">Crawler Live</a>
+                        <a class="btn btn-success" href="{{ route('crawler', ['type' => 'today']) }}">Crawler Today</a>
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                     @endif
