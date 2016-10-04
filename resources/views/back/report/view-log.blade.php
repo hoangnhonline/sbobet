@@ -40,7 +40,7 @@
           </tr>
           @endforeach
           @else
-          <tr><td colspan="5">No record with bet ratio = {{ $s->ratio }} [ {{ $s->time_from  }} -> {{ $s->time_to }} ].</td></tr>
+          <tr><td colspan="7">No record with bet ratio = {{ $s->ratio }} [ {{ $s->time_from  }} -> {{ $s->time_to }} ].</td></tr>
         @endif
         </table>
         @else
