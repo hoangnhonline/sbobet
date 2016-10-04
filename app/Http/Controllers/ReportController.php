@@ -50,11 +50,12 @@ class ReportController extends Controller {
 		return redirect()->route('match.index');
 	}	
 	public function crawler(Request $request){
-		$type = $request->type;		
-		
+		$type = $request->type;
+		$account_id = self::$account_id;
+		$detailAccount = Account::find($account_id);
 		$gmclient= new \GearmanClient();			
 		$gmclient->addServer("127.0.0.1", 4730);		
-		$job_handle = $gmclient->doBackground("crawler", json_encode(['user_id' => self::$account_id, 'type' => $type]));
+		$job_handle = $gmclient->doBackground("crawler", json_encode(['user_id' => self::$account_id, 'type' => $type, 'user_name' => $detailAccount->username, 'user_alias' => $detailAccount->user_alias]));
 		if ($gmclient->returnCode() != GEARMAN_SUCCESS)
 		{
 		  echo "bad return code\n";
