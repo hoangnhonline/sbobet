@@ -48,10 +48,10 @@ table#keo_bet td{
 	    <select class="form-control" name="bet_type" id="bet_type">
 		    <option value="1" {{ $bet_type == 1 ? "selected" : "" }}>Handicap Full Time </option>
 		    <option value="3" {{ $bet_type == 3 ? "selected" : "" }}>Under/Over Full Time</option>
-			@if($matchDetail->time_in_half == 1)
+			
 		    <option value="7" {{ $bet_type == 7 ? "selected" : "" }}>Handicap First Half</option>
 		    <option value="9" {{ $bet_type == 9 ? "selected" : "" }}>Under/Over First Half</option>
-			@endif
+			
 	    </select>
 	  </div>
 	  @if( $bet_type == 1 || $bet_type == 7)

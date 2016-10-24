@@ -136,20 +136,19 @@ class ReportController extends Controller {
 				$query->where('schedule_bet.status','>', 2);	
 			}
 		}
+		$query->join('match', function($join)
+		 {
+		  $join->on('match.ref_id', '=', 'schedule_bet.match_id');
+			$join->on('match.user_id', '=', 'schedule_bet.account_id');
+
+		 });
+		
 		$dataArr = $query->whereRaw("DATE(schedule_bet.created_at) = '$ondate'")->where(['schedule_bet.provider' => self::$provider, 'schedule_bet.account_id' => self::$account_id])		
-		->select('schedule_bet.*')		
+		->select('schedule_bet.*', 'team_name', 'team_name2')		
 		->get();
-		$str_match_id = '';
-		foreach( $dataArr as $data){
-			$match_id = $data->match_id;
-			$str_match_id .= $match_id.",";
-			$tmp  = Match::where('ref_id', $match_id)->where('user_id', self::$account_id)->first();
-			if($tmp){
-				$detailMatch[$match_id] = $tmp->toArray();
-			} 
-		}
+		
 		$account_id = self::$account_id;
-		$thoaArr = [];
+		/*$thoaArr = [];
 		$thoa = $khongthoa = $success = 0;
 		if( $dataArr->count() > 0){
 			foreach($dataArr as $data){
@@ -192,9 +191,9 @@ class ReportController extends Controller {
 				}
 			}
 		}
-		
+		*/
 		//echo "<pre>";
 		//var_dump($detailMatch);die;
-		return view('back.report.schedule', compact('dataArr', 'ondate', 'status', 'bet_type', 'detailMatch', 'account_id', 'thoaArr', 'thoa', 'khongthoa', 'success'));
+		return view('back.report.schedule', compact('dataArr', 'ondate', 'status', 'bet_type', 'detailMatch', 'account_id'));
 	}	
 }

@@ -50,6 +50,7 @@ class MatchController extends Controller {
 			->leftJoin('league', 'league.league_id', '=', 'account_league.league_id')
 			->where('league.provider', self::$provider)
 			->select('league.league_id as league_id', 'league_name')
+			->orderBy('league_name')
 			->get();
 		if( $tmp ){
 			foreach ($tmp as $key => $value) {
@@ -64,7 +65,7 @@ class MatchController extends Controller {
 			$query->whereRaw("LOWER(league_name) LIKE '%".$name."%'");
 		}
 
-		$arrLeague = $query->get();		
+		$arrLeague = $query->orderBy('league_name')->get();		
 
 		return view( 'back.match.league', compact('arrLeague', 'selected', 'name', 'arrLeagueAll', 'selectedId', 'arrLeagueSelected') );	
 	}
@@ -77,7 +78,7 @@ class MatchController extends Controller {
 
 		$a = Match::where('league_id', '>', 0)->where('provider', self::$provider)
 		->where('user_id', self::$account_id)
-		->groupBy('league_id')->get();
+		->groupBy('league_id')->orderBy('time_in_string')->get();
 
 		foreach($a as $m){
 		
@@ -112,7 +113,7 @@ class MatchController extends Controller {
 			}	
 		$chuaDaArr = $queryChuaDa->whereRaw("SUBSTRING(time_in_string,1,8) = '".$strDate."'")
 		->where('user_id', self::$account_id)
-		->groupBy('ref_id')->get();
+		->groupBy('ref_id')->orderBy('time_in_string')->get();
 
 		if($team_name != ''){
 
@@ -128,7 +129,7 @@ class MatchController extends Controller {
 			});
 			$queryChuaDa->where('user_id', self::$account_id);
 			$queryChuaDa->whereRaw('SUBSTRING(time_in_string,8) = '.$strDate);
-			$chuaDaArr = $queryChuaDa->groupBy('ref_id')->get();
+			$chuaDaArr = $queryChuaDa->groupBy('ref_id')->orderBy('time_in_string')->get();
 		}
 		//dd($chuaDaArr);
 		

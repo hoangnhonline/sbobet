@@ -4,7 +4,7 @@
       </div>
   @endif
     <div class="table-responsive " >
-    <div class="{{ $matchDetail->time_in_half != 2 ? "col-md-8" : "col-md-12" }}" style="padding-left:0px !important;padding-right:0px !important;">
+    <div class="col-md-8" style="padding-left:0px !important;padding-right:0px !important;">
     <table class="table table-bordered" id="current">
     <tr>
       <th rowspan="2">Time</th>
@@ -35,7 +35,7 @@
     @endif
     </table>
     </div>
-	@if($matchDetail->time_in_half != 2)
+	
     <div class="col-md-4" style="padding-left:0px !important;padding-right:0px !important;">
       <table class="table table-bordered" id="current">
         <tr>
@@ -64,7 +64,7 @@
         @endif
         </table>
     </div>
-	@endif
+	
     <div class="clearfix"></div>
      @if($lichKeoArr->count() > 0)
     <h4>Handicap schedule list</h4>
