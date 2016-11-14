@@ -35,13 +35,24 @@
   </div>
  <div class="clearfix"></div>
   <h3 style="padding-left:0px;text-align:left">Schedule report : {{ $ondate }} [{{ $dataArr->count() }}]</h3>
-
+ @if($status != 1)
+ <h4>Right conditions : <span style="color:blue">{{ $thoa }}</span> 
+  @if(!$status)
+  - Bet success : {{ $success }} @if($thoa >0 )(<span style="color:red">{{ ceil($success*100/$thoa) }}%</span>)@endif
+	@endif
+</h4>
+@if($status)
+  <h4>Wrong conditions : <span style="color:red">{{ $khongthoa }}</span></h4>
+@endif
+  @endif
    <div class="col-md-12" style="padding:0px !important;"> 
       <table class="table table-bordered" id="current">
         <tr>
           <th width="1%">ID</th>
           <th>Match</th>
-		 
+		  @if($status > 1)
+		  <th>Right conditions</th>
+			@endif
           <th>Bet Type</th>                
           <th>Selection</th>      
           <th>Time / price</th>      
@@ -60,7 +71,17 @@
               <br/><a href="{{ route('view-log', ['schedule_id' => $data->id]) }}" target="_blank">View log</a>
              
             </td>
-			
+			@if($status > 1)
+			<td style="text-align:center">
+				<?php 
+				if($thoaArr[$data->id] > 0){
+					echo "<h1 style='color:red'>".$thoaArr[$data->id]."</h1>";
+				}else{
+					echo 0;
+				}
+				?>
+			</td>
+			@endif
             <td>
               <?php 
               if( $data->bet_type== 1){
