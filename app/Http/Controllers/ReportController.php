@@ -75,7 +75,7 @@ class ReportController extends Controller {
 		        ],
 		        function($message) use ($data) {
 		            $message->subject("Error gearman");
-		            $message->to('hoangnhonline@gmail.com');
+		            $message->to(['hoangnhonline@gmail.com', 'anhnhan82@gmail.com']);
 		            $message->from('hoangnhshopping@gmail.com', 'Auto Error');
 		            $message->sender('hoangnhshopping@gmail.com', 'Sbobet Bot');
 		   		});
@@ -109,7 +109,7 @@ class ReportController extends Controller {
 	        ],
 	        function($message) use ($data) {
 	            $message->subject("Error gearman");
-	            $message->to('hoangnhonline@gmail.com');
+	            $message->to(['hoangnhonline@gmail.com', 'anhnhan82@gmail.com']);
 	            $message->from('hoangnhshopping@gmail.com', 'Auto Error');
 	            $message->sender('hoangnhshopping@gmail.com', 'Sbobet Bot');
 	   		});
