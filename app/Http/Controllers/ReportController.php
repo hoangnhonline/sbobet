@@ -68,6 +68,14 @@ class ReportController extends Controller {
 				
 
 			}catch(\Exception $e){
+				shell_exec('/etc/init.d/gearmand stop');
+				sleep(1);
+				shell_exec('/etc/init.d/gearmand start');
+				sleep(1);
+				shell_exec('sh /opt/crawler/scripts/job.sh stop');
+				sleep(1);
+				shell_exec('sh /opt/crawler/scripts/job.sh start');
+				sleep(1);
 				Mail::send('back.report.mail-gearman',
 		        [
 		            'job_name'          => $job_name,
@@ -102,6 +110,14 @@ class ReportController extends Controller {
 
 			echo "done!\n";
 		}catch(\Exception $ex){
+			shell_exec('/etc/init.d/gearmand stop');
+			sleep(1);
+			shell_exec('/etc/init.d/gearmand start');
+			sleep(1);
+			shell_exec('sh /opt/crawler/scripts/job.sh stop');
+			sleep(1);
+			shell_exec('sh /opt/crawler/scripts/job.sh start');
+			sleep(1);
 			Mail::send('back.report.mail-gearman',
 	        [
 	            'job_name'          => $job_name,
