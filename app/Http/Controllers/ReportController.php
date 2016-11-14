@@ -51,13 +51,13 @@ class ReportController extends Controller {
 		$model->save();
 		$job_name = "match_update_status";
 		$data = json_encode(['user_id' => self::$account_id]);
-
+		//return view('back.report.mail-gearman', compact('job_name', 'data'));
 		Mail::send('back.report.mail-gearman',
         [
             'job_name'          => $job_name,
-            'data'             => $data                    
+            'data'             => $data
         ],
-        function($message) {
+        function($message) use ($data) {
             $message->subject("Error gearman");
             $message->to('hoangnhonline@gmail.com');
             $message->from('hoangnhshopping@gmail.com', 'Auto Error');
