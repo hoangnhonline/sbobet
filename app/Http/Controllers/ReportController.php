@@ -28,7 +28,6 @@ class ReportController extends Controller {
 
 		view()->share([ 'accountArr' => $accountArr, 'provider' => self::$provider, 'detailAccount' => $detailAccount]);
 
-
 	}
 	public function pushGearman(Request $request){
 		$data = $request->data;
@@ -51,24 +50,11 @@ class ReportController extends Controller {
 		$model->save();
 		$job_name = "match_update_status";
 		$data = json_encode(['user_id' => self::$account_id]);
-		//return view('back.report.mail-gearman', compact('job_name', 'data'));
-		Mail::send('back.report.mail-gearman',
-        [
-            'job_name'          => $job_name,
-            'data'             => $data
-        ],
-        function($message) use ($data) {
-            $message->subject("Error gearman");
-            $message->to('hoangnhonline@gmail.com');
-            $message->from('hoangnhshopping@gmail.com', 'Auto Error');
-            $message->sender('hoangnhshopping@gmail.com', 'Sbobet Bot');
-   		});
-   		die('123');
+		
 		if($run == 0){						
 		
 			try{
 				
-				/*
 				$gmclient= new \GearmanClient();			
 				$gmclient->addServer("127.0.0.1", 4730);		
 				$job_handle = $gmclient->doBackground($job_name, $data);
@@ -79,10 +65,20 @@ class ReportController extends Controller {
 				}
 
 				echo "done!\n";
-				*/
+				
 
 			}catch(\Exception $e){
-				
+				Mail::send('back.report.mail-gearman',
+		        [
+		            'job_name'          => $job_name,
+		            'data'             => $data
+		        ],
+		        function($message) use ($data) {
+		            $message->subject("Error gearman");
+		            $message->to('hoangnhonline@gmail.com');
+		            $message->from('hoangnhshopping@gmail.com', 'Auto Error');
+		            $message->sender('hoangnhshopping@gmail.com', 'Sbobet Bot');
+		   		});
 			}
 		}
 		
@@ -92,16 +88,34 @@ class ReportController extends Controller {
 		$type = $request->type;
 		$account_id = self::$account_id;
 		$detailAccount = Account::find($account_id);
-		$gmclient= new \GearmanClient();			
-		$gmclient->addServer("127.0.0.1", 4730);		
-		$job_handle = $gmclient->doBackground("crawler", json_encode(['user_id' => self::$account_id, 'type' => $type, 'user_name' => $detailAccount->username, 'user_alias' => $detailAccount->user_alias]));
-		if ($gmclient->returnCode() != GEARMAN_SUCCESS)
-		{
-		  echo "bad return code\n";
-		  exit;
+		$job_name = "crawler";
+		$data = json_encode(['user_id' => self::$account_id, 'type' => $type, 'user_name' => $detailAccount->username, 'user_alias' => $detailAccount->user_alias]);
+		try{
+			$gmclient= new \GearmanClient();			
+			$gmclient->addServer("127.0.0.1", 4730);		
+			$job_handle = $gmclient->doBackground($job_name, $data);
+			if ($gmclient->returnCode() != GEARMAN_SUCCESS)
+			{
+			  echo "bad return code\n";
+			  exit;
+			}
+
+			echo "done!\n";
+		}catch(\Exception $ex){
+			Mail::send('back.report.mail-gearman',
+	        [
+	            'job_name'          => $job_name,
+	            'data'             => $data
+	        ],
+	        function($message) use ($data) {
+	            $message->subject("Error gearman");
+	            $message->to('hoangnhonline@gmail.com');
+	            $message->from('hoangnhshopping@gmail.com', 'Auto Error');
+	            $message->sender('hoangnhshopping@gmail.com', 'Sbobet Bot');
+	   		});
 		}
 
-		echo "done!\n";
+		
 		
 		return redirect()->route('match.index');
 	}	
