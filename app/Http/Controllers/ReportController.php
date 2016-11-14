@@ -9,7 +9,7 @@ use App\Models\ScheduleBet;
 use App\Models\MatchBetDetail;
 use Session;
 use DB;
-use GearmanClient;
+use GearmanClient, Mail;
 
 class ReportController extends Controller {
 
@@ -30,23 +30,62 @@ class ReportController extends Controller {
 
 
 	}
+	public function pushGearman(Request $request){
+		$data = $request->data;
+		$job_name = $request->job_name;
+		$gmclient= new \GearmanClient();			
+		$gmclient->addServer("127.0.0.1", 4730);		
+		$job_handle = $gmclient->doBackground($job_name, $data);
+		if ($gmclient->returnCode() != GEARMAN_SUCCESS)
+		{
+		  echo "bad return code\n";
+		  exit;
+		}
+
+		echo "done!\n";
+	}
 	public function updateRun(Request $request){
 		$run = $request->run;
 		$model = Account::find(self::$account_id);
 		$model->run = $run;
 		$model->save();
-		if($run == 0){			
-			$gmclient= new \GearmanClient();			
-			$gmclient->addServer("127.0.0.1", 4730);		
-			$job_handle = $gmclient->doBackground("match_update_status", json_encode(['user_id' => self::$account_id]));
-			if ($gmclient->returnCode() != GEARMAN_SUCCESS)
-			{
-			  echo "bad return code\n";
-			  exit;
-			}
+		$job_name = "match_update_status";
+		$data = json_encode(['user_id' => self::$account_id]);
 
-			echo "done!\n";
+		Mail::send('back.report.mail-gearman',
+        [
+            'job_name'          => $job_name,
+            'data'             => $data                    
+        ],
+        function($message) {
+            $message->subject("Error gearman");
+            $message->to('hoangnhonline@gmail.com');
+            $message->from('hoangnhshopping@gmail.com', 'Auto Error');
+            $message->sender('hoangnhshopping@gmail.com', 'Sbobet Bot');
+   		});
+   		die('123');
+		if($run == 0){						
+		
+			try{
+				
+				/*
+				$gmclient= new \GearmanClient();			
+				$gmclient->addServer("127.0.0.1", 4730);		
+				$job_handle = $gmclient->doBackground($job_name, $data);
+				if ($gmclient->returnCode() != GEARMAN_SUCCESS)
+				{
+				  echo "bad return code\n";
+				  exit;
+				}
+
+				echo "done!\n";
+				*/
+
+			}catch(\Exception $e){
+				
+			}
 		}
+		
 		return redirect()->route('match.index');
 	}	
 	public function crawler(Request $request){

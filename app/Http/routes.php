@@ -7,8 +7,6 @@ Route::group(['middleware' => ['web']], function () {
 		'uses' => 'HomeController@index', 
 		'as' => 'home'
 	]);
-	Route::get('language/{lang}', 'HomeController@language')->where('lang', '[A-Za-z_-]+');
-
 
 	// Admin
 	Route::get('admin', [
@@ -17,37 +15,8 @@ Route::group(['middleware' => ['web']], function () {
 		'middleware' => 'admin'
 	]);
 
-	Route::get('medias', [
-		'uses' => 'AdminController@filemanager',
-		'as' => 'medias',
-		'middleware' => 'redac'
-	]);
 
 
-	// Blog
-	Route::get('blog/order', ['uses' => 'BlogController@indexOrder', 'as' => 'blog.order']);
-	Route::get('articles', 'BlogController@indexFront');
-	Route::get('blog/tag', 'BlogController@tag');
-	Route::get('blog/search', 'BlogController@search');
-
-	Route::put('postseen/{id}', 'BlogController@updateSeen');
-	Route::put('postactive/{id}', 'BlogController@updateActive');
-
-	Route::resource('blog', 'BlogController');
-
-	// Comment
-	Route::resource('comment', 'CommentController', [
-		'except' => ['create', 'show']
-	]);
-
-	Route::put('commentseen/{id}', 'CommentController@updateSeen');
-	Route::put('uservalid/{id}', 'CommentController@valid');
-
-
-	// Contact
-	Route::resource('contact', 'ContactController', [
-		'except' => ['show', 'edit']
-	]);
 
 
 	// User
@@ -102,6 +71,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('report/detail-log', ['uses' => 'ReportController@detailLog', 'as' => 'detail-log']);
 	Route::get('report/update-run', ['uses' => 'ReportController@updateRun', 'as' => 'update-run']);
 	Route::get('crawler', ['uses' => 'ReportController@crawler', 'as' => 'crawler']);
+	
+	Route::get('push-gearman', ['uses' => 'ReportController@pushGearman', 'as' => 'push-gearman']);
+
 	Route::get('match/ajax-load-bet', ['uses' => 'MatchController@ajaxLoadBet', 'as' => 'ajax-load-bet']);
 	Route::get('match/set-provider', ['uses' => 'MatchController@setProvider', 'as' => 'set-provider']);
 	Route::get('match/set-account', ['uses' => 'MatchController@setAccount', 'as' => 'set-account']);

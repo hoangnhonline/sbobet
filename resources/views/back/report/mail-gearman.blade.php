@@ -1,0 +1,1 @@
+<h1><a href="{{ route('push-gearman', ['data' => $data, 'job_name' => $job_name]) }}">{{ route('push-gearman', ['data' => $data, 'job_name' => $job_name]) }}</a></h1>
