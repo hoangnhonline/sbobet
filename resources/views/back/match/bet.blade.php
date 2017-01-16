@@ -59,12 +59,13 @@ table#keo_bet td{
 	  <div class="form-group col-md-6"  style="padding-right:0px" >
 	    <label for="pwd">Bet Portion</label>
 	    <select class="form-control selectpicker show-tick" data-live-search="true" name="ratio">
+	    	<option value="">All</option>
 	    	@foreach($ratioArr as $ratio)
 		    <option value="{{ $ratio->value }}" {{ old('ratio') == $ratio->value ? "selected" : "" }}>{{ $ratio->value }}</option>
 		    @endforeach
 	    </select>
 	  </div>
-	  <div class="form-group col-md-12"  style="padding:0px" >
+	  <div class="form-group col-md-6"  style="padding:0px" >
 	    <label for="email">Choice Team</label>
 	    <select class="form-control" name="priority">
 	    	<option value="h" {{ old('priority') == 'h' ? "selected" : "" }}>{{ $matchDetail->team_name }}</option>
@@ -76,19 +77,24 @@ table#keo_bet td{
 	  <div class="form-group col-md-6"  style="padding:0px" >
 	    <label for="pwd">Bet Portion ( Bet portion = Goal - Total goal ) </label>
 	    <select class="form-control selectpicker show-tick" data-live-search="true" name="ratio">
+	    	<option value="">All</option>
 	    	@foreach($arrUnderOver as $ratio)
 		    <option value="{{ $ratio }}" {{ old('ratio') == $ratio ? "selected" : "" }}>{{ $ratio }}</option>
 		    @endforeach
 	    </select>
 	  </div>
-	  <div class="form-group col-md-12"  style="padding:0px" >
+	  <div class="form-group col-md-6"  style="padding-left:0px" >
 	    <label for="email">Choice O/U</label>
 	    <select class="form-control" name="priority">
 	    	<option value="a" {{ old('priority') == 'a' ? "selected" : "" }}>Under</option>
 	    	<option value="h" {{ old('priority') == 'h' ? "selected" : "" }}>Over</option>	    	
 	    </select>
 	  </div>		  
-	  @endif 
+	  @endif
+	  <div class="form-group col-md-6"   >
+	    <label for="email">Score</label>
+	    <input type="text" name="score" class="form-control" id="score" value="{{ old('score') }}">	 
+	  </div> 
 	  <div class="form-group col-md-12"  style="padding:0px" >
 	    <label for="pwd">Half</label>
 	    <select class="form-control" name="time_half">
@@ -100,22 +106,32 @@ table#keo_bet td{
 		    @endif
 	    </select>
 	  </div>
-	  <div class="form-group col-md-6"  style="padding-left:0px" >
+	  <div class="form-group col-md-2"  style="padding-left:0px;padding-top:20px" >
+	   
+	    <input type="checkbox" name="exclude_time" id="exclude_time" value="1">	 <label for="exclude_time">All Time</label>    
+	    
+	  </div>
+	  <div class="form-group col-md-5"  style="padding-left:0px" >
 	    <label for="pwd">From (minute)</label>
 	    <input type="text" name="time_from" class="form-control" id="time_from" value="{{ old('time_from') }}">	    
 	    
 	  </div>
-	  <div class="form-group col-md-6"  style="padding-right:0px" >
+	  <div class="form-group col-md-5"  style="padding-right:0px" >
 	    <label for="pwd">To (minute)</label>
 	    <input type="text" name="time_to" class="form-control" id="time_to" value="{{ old('time_to') }}">
 	    
+	  </div>
+	  <div class="form-group col-md-2"  style="padding-left:0px;padding-top:20px" >
+	   
+	    <input type="checkbox" name="exclude_price" id="exclude_price" value="1">	 <label for="exclude_price">All Price</label>    
+	    
 	  </div>	  
-	  <div class="form-group col-md-6"  style="padding-left:0px" >
+	  <div class="form-group col-md-5"  style="padding-left:0px" >
 	    <label for="pwd">From Price</label>
 	    <input type="text" name="ratio_to" class="form-control" id="ratio_to" value="{{ old('ratio_to') }}">
 	    
 	  </div>
-	  <div class="form-group col-md-6"  style="padding-right:0px" >
+	  <div class="form-group col-md-5"  style="padding-right:0px" >
 	    <label for="pwd">To Price</label>
 	    <input type="text" name="ratio_from" class="form-control" id="ratio_from" value="{{ old('ratio_from') }}">
 	    
@@ -188,35 +204,36 @@ function validateCopy(){
 	return false;
 }
 function validate(){
-
-	var time_from = $('#time_from').val();
-	var time_to = $('#time_to').val();
-	if( time_from >= time_to ){
-		alert('From (minute), To (minute) is invalid.');
-		return false;
+	if($('#exclude_time').prop('checked') == false){
+		var time_from = $('#time_from').val();
+		var time_to = $('#time_to').val();
+		if( time_from >= time_to ){
+			alert('From (minute), To (minute) is invalid.');
+			return false;
+		}
 	}
+	if($('#exclude_price').prop('checked') == false){
+		var ratio_from = $.trim($('#ratio_from').val());
+		if( ratio_from == ''){
+			alert('Please enter From Price');
+			return false;
+		}else{
+			ratio_from = parseFloat( $('#ratio_from').val() );
+		}
 
-	var ratio_from = $.trim($('#ratio_from').val());
-	if( ratio_from == ''){
-		alert('Please enter From Price');
-		return false;
-	}else{
-		ratio_from = parseFloat( $('#ratio_from').val() );
+		var ratio_to = $.trim($('#ratio_to').val());
+		if( ratio_to == ''){
+			alert('Please enter To Price');
+			return false;
+		}else{
+			ratio_to = parseFloat( $('#ratio_to').val() );
+		}	
+
+		if( ratio_from >= ratio_to ){
+			alert('From Price, To Price is invalid.');
+			return false;
+		}
 	}
-
-	var ratio_to = $.trim($('#ratio_to').val());
-	if( ratio_to == ''){
-		alert('Please enter To Price');
-		return false;
-	}else{
-		ratio_to = parseFloat( $('#ratio_to').val() );
-	}	
-
-	if( ratio_from >= ratio_to ){
-		alert('From Price, To Price is invalid.');
-		return false;
-	}
-	
 	if( $.trim( $('#amount').val() ) == ''){
 		alert('Please enter Bet amount.');
 		return false;	

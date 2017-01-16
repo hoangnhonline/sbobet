@@ -435,11 +435,29 @@ class MatchController extends Controller {
 
 	    
 	    $input = $request->all();
-	    
+	    $score = trim($input['score']);
+	    if($score != ''){
+	    	$tmpScore = explode('-', $score);
+	    	$input['score_1'] = trim($tmpScore[0]);
+	    	$input['score_2'] = trim($tmpScore[1]);
+
+	    }
+		unset($input['score']);
+	    if($input['ratio'] == ''){
+	    	$input['ratio'] = null;
+	    }
+	    if(isset($input['exclude_price']) && $input['exclude_price'] == 1){
+	    	$input['ratio_from'] = $input['ratio_to'] = null;
+	    }
+	    if(isset($input['exclude_time']) && $input['exclude_time'] == 1){
+	    	$input['time_from'] = 1; 
+	    	$input['time_to'] = 45;
+	    }
+
 	    $input['provider'] = self::$provider;
 	    
 	    $input['account_id'] = self::$account_id;
-
+	    //var_dump($input);die;
 	    ScheduleBet::create($input);
 
 	    $match_id_copy = $request->match_id_copy;

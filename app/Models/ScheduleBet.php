@@ -29,7 +29,9 @@ class ScheduleBet extends Model  {
         'time_half',
 		'ratio_from',
 		'ratio_to',
-		'account_id'
+		'account_id',
+		'score_1',
+		'score_2'
     ];
 
 }

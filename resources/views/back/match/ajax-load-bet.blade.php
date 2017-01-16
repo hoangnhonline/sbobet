@@ -77,6 +77,7 @@
             <th style="text-align:left;width:250px">Your choice</th>
             <th style="text-align:center">Half</th>           
             <th style="text-align:center">Minutes From - To</th>
+            <th style="text-align:center">Score</th>
             <th style="text-align:right">Price From - To</th>
             <th style="text-align:center">Bet Portion</th>
             <th style="text-align:right">Bet Amount</th>
@@ -92,8 +93,15 @@
               <td>{{ $lich->priority == 'h' ? $matchDetail->team_name : $matchDetail->team_name2 }}</td>
               <td style="text-align:center">{{ $lich->time_half }}</td>       
               <td style="text-align:center">{{ $lich->time_from }} - {{ $lich->time_to }}</td>
-              <td style="text-align:right">[ {{ $lich->ratio_from }} ] - [ {{ $lich->ratio_to }} ]</td>
-              <td style="text-align:center">{{ $lich->ratio }}</td>
+              <td style="text-align:center">{{ $lich->score_1 ? $lich->score_1."-". $lich->score_2 : 'All' }}</td>
+              <td style="text-align:right">
+                @if($lich->ratio_from)
+              [ {{ $lich->ratio_from }} ] - [ {{ $lich->ratio_to }} ]
+              @else
+              All
+              @endif
+              </td>
+              <td style="text-align:center">{{ $lich->ratio === NULL ? "All" : $lich->ratio }}</td>
               <td style="text-align:right">{{ number_format($lich->amount) }}</td>
               <td style="text-align:right">
                 @if($lich->status == 1)
@@ -147,7 +155,8 @@
             <th style="text-align:left;width:100px">Bet Type</th>
             <th style="text-align:left;width:250px">Your choice</th>
             <th style="text-align:center">Half</th> 
-            <th style="text-align:center">Minutes From - to</th>
+            <th style="text-align:center">Minutes From - To</th>
+            <th style="text-align:center">Score</th>
             <th style="text-align:right">Price From - To</th>          
             <th style="text-align:center">Bet Portion</th>
             <th style="text-align:right">Bet amount</th>
@@ -163,8 +172,15 @@
               <td>{{ $lich->priority == 'h' ? 'Over' : 'Under' }}</td>
               <td style="text-align:center">{{ $lich->time_half }}</td>
               <td style="text-align:center">{{ $lich->time_from }} - {{ $lich->time_to }}</td>
-              <td style="text-align:right">[ {{ $lich->ratio_from }} ] - [ {{ $lich->ratio_to }} ]</td>
-              <td style="text-align:center">{{ $lich->ratio }}</td>
+              <td style="text-align:center">{{ $lich->score_1 ? $lich->score_1."-". $lich->score_2 : 'All' }}</td>
+              <td style="text-align:right">
+              @if($lich->ratio_from)
+              [ {{ $lich->ratio_from }} ] - [ {{ $lich->ratio_to }} ]
+              @else
+              All
+              @endif
+              </td>
+              <td style="text-align:center">{{ $lich->ratio == null ? "All" : $lich->ratio }}</td>
               <td style="text-align:right">{{ number_format($lich->amount) }}</td>
               <td style="text-align:right">
                 @if($lich->status == 1)
