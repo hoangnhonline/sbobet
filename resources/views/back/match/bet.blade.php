@@ -94,6 +94,7 @@ table#keo_bet td{
 	  <div class="form-group col-md-6"   >
 	    <label for="email">Score</label>
 	    <select class="form-control" name="score" id="score">
+	    	<option value="0-0">All</option>
 	    	<option value="0-0">0-0</option>
 			<option value="0-1">0-1</option>			
 			<option value="0-2">0-2</option>			
@@ -110,8 +111,7 @@ table#keo_bet td{
 			<option value="3-1">3-1</option>
 			<option value="3-2">3-2</option>
 			<option value="3-3">3-3</option>
-	    </select>
-	    <input type="text" name="score" class="form-control" id="score" value="{{ old('score') }}">	 
+	    </select>	    
 	  </div> 
 	  <div class="form-group col-md-12"  style="padding:0px" >
 	    <label for="pwd">HT/FT</label>
