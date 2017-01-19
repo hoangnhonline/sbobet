@@ -93,16 +93,34 @@ table#keo_bet td{
 	  @endif
 	  <div class="form-group col-md-6"   >
 	    <label for="email">Score</label>
+	    <select class="form-control" name="score" id="score">
+	    	<option value="0-0">0-0</option>
+			<option value="0-1">0-1</option>			
+			<option value="0-2">0-2</option>			
+			<option value="0-3">0-3</option>
+			<option value="1-0">1-0</option>
+			<option value="1-1">1-1</option>
+			<option value="1-2">1-2</option>
+			<option value="1-3">1-3</option>
+			<option value="2-0">2-0</option>
+			<option value="2-1">2-1</option>
+			<option value="2-2">2-2</option>
+			<option value="2-3">2-3</option>
+			<option value="3-0">3-0</option>
+			<option value="3-1">3-1</option>
+			<option value="3-2">3-2</option>
+			<option value="3-3">3-3</option>
+	    </select>
 	    <input type="text" name="score" class="form-control" id="score" value="{{ old('score') }}">	 
 	  </div> 
 	  <div class="form-group col-md-12"  style="padding:0px" >
-	    <label for="pwd">Half</label>
+	    <label for="pwd">HT/FT</label>
 	    <select class="form-control" name="time_half">
 		    @if($matchDetail->time_in_half != "2")
-			<option value="1" {{ old('time_half') == 1 ? "selected" : "" }}>1</option>
+			<option value="1" {{ old('time_half') == 1 ? "selected" : "" }}>Half Time</option>
 			@endif
 			@if( $bet_type != 7 && $bet_type != 9)
-		    <option value="2" {{ old('time_half') == 2 ? "selected" : "" }}>2</option>
+		    <option value="2" {{ old('time_half') == 2 ? "selected" : "" }}>Full Time</option>
 		    @endif
 	    </select>
 	  </div>
@@ -154,6 +172,24 @@ table#keo_bet td{
 
 @section('scripts')
 <script>
+$(document).ready(function(){
+	$('#exclude_time').click(function(){
+		var obj = $(this);
+		if(obj.prop('checked') == true){
+			$('#time_from, #time_to').val('').attr('disabled', 'disabled');
+		}else{
+			$('#time_from, #time_to').val('').removeAttr('disabled');
+		}
+	});
+	$('#exclude_price').click(function(){
+		var obj = $(this);
+		if(obj.prop('checked') == true){
+			$('#ratio_from, #ratio_to').val('').attr('disabled', 'disabled');
+		}else{
+			$('#ratio_from, #ratio_to').val('').removeAttr('disabled');
+		}
+	});
+});
 $(document).on('click', '.copySchedule', function(){
 	$('#match_id_copy').val('');
 	var schedule_id = $(this).attr('data-value');

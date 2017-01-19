@@ -432,8 +432,6 @@ class MatchController extends Controller {
 			'ratio_to.numeric' => 'To Price is invalid.',		
 		]);	    
 
-
-	    
 	    $input = $request->all();
 	    $score = trim($input['score']);
 	    if($score != ''){
@@ -453,7 +451,11 @@ class MatchController extends Controller {
 	    	$input['time_from'] = 1; 
 	    	$input['time_to'] = 45;
 	    }
-
+	    if($input['time_half'] == 2){
+	    	$input['time_half'] = null;
+	    	$input['time_from'] = null; 
+	    	$input['time_to'] = null;
+	    }
 	    $input['provider'] = self::$provider;
 	    
 	    $input['account_id'] = self::$account_id;
