@@ -1,4 +1,5 @@
 @extends('back.template')
+@extends('back.template')
 
 @section('main')
 <style>
@@ -94,7 +95,7 @@ table#keo_bet td{
 	  <div class="form-group col-md-6"   >
 	    <label for="email">Score</label>
 	    <select class="form-control" name="score" id="score">
-	    	<option value="0-0">All</option>
+	    	<option value="">All</option>
 	    	<option value="0-0">0-0</option>
 			<option value="0-1">0-1</option>			
 			<option value="0-2">0-2</option>			
