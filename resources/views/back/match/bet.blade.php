@@ -1,5 +1,4 @@
 @extends('back.template')
-@extends('back.template')
 
 @section('main')
 <style>
