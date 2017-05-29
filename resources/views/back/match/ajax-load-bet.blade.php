@@ -93,7 +93,7 @@
               <td>{{ $lich->priority == 'h' ? $matchDetail->team_name : $matchDetail->team_name2 }}</td>
               <td style="text-align:center">{{ $lich->time_half }}</td>       
               <td style="text-align:center">{{ $lich->time_from }} - {{ $lich->time_to }}</td>
-              <td style="text-align:center">{{ $lich->score_1 ? $lich->score_1."-". $lich->score_2 : 'All' }}</td>
+              <td style="text-align:center">{{ $lich->score_1 >=0 ? $lich->score_1."-". $lich->score_2 : 'All' }}</td>
               <td style="text-align:right">
                 @if($lich->ratio_from)
               [ {{ $lich->ratio_from }} ] - [ {{ $lich->ratio_to }} ]
@@ -172,7 +172,7 @@
               <td>{{ $lich->priority == 'h' ? 'Over' : 'Under' }}</td>
               <td style="text-align:center">{{ $lich->time_half }}</td>
               <td style="text-align:center">{{ $lich->time_from }} - {{ $lich->time_to }}</td>
-              <td style="text-align:center">{{ $lich->score_1 ? $lich->score_1."-". $lich->score_2 : 'All' }}</td>
+              <td style="text-align:center">{{ $lich->score_1 >= 0 ? $lich->score_1."-". $lich->score_2 : 'All' }}</td>
               <td style="text-align:right">
               @if($lich->ratio_from)
               [ {{ $lich->ratio_from }} ] - [ {{ $lich->ratio_to }} ]
